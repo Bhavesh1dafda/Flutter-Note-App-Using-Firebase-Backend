@@ -10,13 +10,13 @@ import 'notepage.dart';
 
 
 Future<void> main() async {
-  // var deviceId = ["E6B67FA2B5A15BCCD5A1663AF09D2D8C"];
+  var deviceId = ["E6B67FA2B5A15BCCD5A1663AF09D2D8C"];
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   MobileAds.instance.initialize();
   runApp(MyApp());
   RequestConfiguration requestConfiguration =  RequestConfiguration(
-
+testDeviceIds: deviceId
   );
   MobileAds.instance.updateRequestConfiguration(requestConfiguration);
 }

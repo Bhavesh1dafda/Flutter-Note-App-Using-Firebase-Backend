@@ -33,7 +33,7 @@ class _RealTimeDatabaseState extends State<RealTimeDatabase> {
                 controller: noteController,
                 decoration: InputDecoration(
                     border: OutlineInputBorder(),
-                    hintText: "Enter Amount"),
+                    hintText: "Enter note"),
               ),
             ),
             InkWell(onTap: (){
@@ -56,25 +56,25 @@ class _RealTimeDatabaseState extends State<RealTimeDatabase> {
                   borderRadius: BorderRadius.circular(12)),
               child: Center(child: Text("Add Note")),
             ),),
-            Container(
-              height: 500,
-              child: FirebaseAnimatedList(query:databaseRef , itemBuilder: (context, snapshot, animation, index){
-                return ListTile(
-                  trailing: IconButton(onPressed: (){
-                    databaseRef.child(snapshot.child('id').value.toString()).remove();
-                  }, icon: Icon(Icons.delete)),
-                  onTap: (){
+            FirebaseAnimatedList(
+              shrinkWrap: true,
+                physics: BouncingScrollPhysics(),
+                query:databaseRef , itemBuilder: (context, snapshot, animation, index){
+              return ListTile(
+                trailing: IconButton(onPressed: (){
+                  databaseRef.child(snapshot.child('id').value.toString()).remove();
+                }, icon: Icon(Icons.delete)),
+                onTap: (){
 
-                    // databaseRef.child(snapshot.child('id').value.toString()).update(
-                    //     {
-                    //       'Notes' : 'nice world'
-                    //     });
-                  },
-                  title: Text(snapshot.child('Notes').value.toString()),
-                  subtitle: Text(snapshot.child('id').value.toString()),
-                );
-              }),
-            )
+                  // databaseRef.child(snapshot.child('id').value.toString()).update(
+                  //     {
+                  //       'Notes' : 'nice world'
+                  //     });
+                },
+                title: Text(snapshot.child('Notes').value.toString()),
+                subtitle: Text(snapshot.child('id').value.toString()),
+              );
+            })
           ],
         ),
       ),

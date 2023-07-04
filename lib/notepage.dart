@@ -50,28 +50,10 @@ class _NotesHomePageState extends State<NotesHomePage> {
   @override
   void initState() {
     super.initState();
-    initBannerAdd();
+
   }
 
-  late BannerAd bannerAd;
-  bool isAdLoaded = false;
-  var adUnit = "ca-app-pub-3940256099942544/6300978111";
 
-  initBannerAdd() {
-    bannerAd = BannerAd(
-        size: AdSize.banner,
-        adUnitId: adUnit,
-        listener: BannerAdListener(onAdLoaded: (ad) {
-          setState(() {
-            isAdLoaded = true;
-          });
-        }, onAdFailedToLoad: (ad, error) {
-          ad.dispose();
-          print(error);
-        }),
-        request: AdRequest());
-    bannerAd.load();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -106,15 +88,6 @@ class _NotesHomePageState extends State<NotesHomePage> {
                 ),
               ),
             ]),
-        bottomNavigationBar: isAdLoaded
-            ? SizedBox(
-                height: bannerAd.size.height.toDouble(),
-                width: bannerAd.size.width.toDouble(),
-                child: AdWidget(
-                  ad: bannerAd,
-                ),
-              )
-            : SizedBox(),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             showModalBottomSheet(
@@ -266,30 +239,6 @@ class _NotesHomePageState extends State<NotesHomePage> {
           child: Column(
             children: [
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                child: TextFormField(
-                  controller: noteController,
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(), hintText: "Enter Amount"),
-                ),
-              ),
-              Container(
-                height: 60,
-                width: 150,
-                decoration: BoxDecoration(
-                    color: Colors.blue,
-                    borderRadius: BorderRadius.circular(20)),
-                child: TextButton(
-                    onPressed: () {
-                      setState(() {});
-                    },
-                    child: Text(
-                      "Search",
-                      style: TextStyle(color: Colors.white),
-                    )),
-              ),
-              Padding(
                 padding: const EdgeInsets.symmetric(vertical: 20),
                 child: Container(
                   height: 500,
@@ -337,7 +286,7 @@ class _NotesHomePageState extends State<NotesHomePage> {
                               child: Column(
                                 children: [
                                   ListTile(
-                                    title: Text("Note : ${notes ?? ""}"),
+                                    title: Text("Note : ${notes ?? ""}",style: TextStyle(fontSize: 20),),
                                     leading: Container(
                                       height: 100,
                                       width: 100,
@@ -390,9 +339,9 @@ class _NotesHomePageState extends State<NotesHomePage> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Text("Rs : ${amount ?? ""}"),
+                                        Text("Rs : ${amount ?? ""}",style: TextStyle(fontSize: 18)),
                                         Text(
-                                            "Date : ${DateFormat('dd MMMM yyyy hh:mm').format(DateTime.parse(myDateTime.toString()))}"),
+                                            "Date : ${DateFormat('dd MMMM yyyy hh:mm').format(DateTime.parse(myDateTime.toString()))}",style: TextStyle(fontSize: 16)),
                                       ],
                                     ),
                                     onTap: () async {
